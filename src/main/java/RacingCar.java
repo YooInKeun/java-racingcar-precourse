@@ -3,19 +3,18 @@ public class RacingCar {
     public static final int STOP_MAX_VALUE = 3;
     public static final int MOVE_ONE_STEP_FORWARD_MIN_VALUE = 4;
     public static final int MOVE_ONE_STEP_FORWARD_MAX_VALUE = 9;
-
-    private static final String VALUE_OUT_OF_RANGE_EXCEPTION_MESSAGE = String.format(
+    private static final String VALUE_OUT_OF_RANGE_MESSAGE = String.format(
             "값은 %d이상 %d이하 또는 %d이상 %d이하 이어야 합니다.",
             STOP_MIN_VALUE, STOP_MAX_VALUE, MOVE_ONE_STEP_FORWARD_MIN_VALUE, MOVE_ONE_STEP_FORWARD_MAX_VALUE
     );
 
-    private RacingCarPosition racingCarPosition;
+    private RacingCarPosition position;
 
     public RacingCar() {
-        this.racingCarPosition = new RacingCarPosition();
+        this.position = new RacingCarPosition();
     }
 
-    public void react(int value) {
+    public void moveOneStepForwardOrStop(Value value) {
         validateValue(value);
 
         if (isValueMoveOneStepForwardRange(value)) {
@@ -23,29 +22,29 @@ public class RacingCar {
         }
     }
 
-    private void validateValue(int value) {
+    private void validateValue(Value value) {
         if (isValueOutOfRange(value)) {
-            throw new IllegalArgumentException(VALUE_OUT_OF_RANGE_EXCEPTION_MESSAGE);
+            throw new IllegalArgumentException(VALUE_OUT_OF_RANGE_MESSAGE);
         }
     }
 
-    private boolean isValueOutOfRange(int value) {
+    private boolean isValueOutOfRange(Value value) {
         return !isValueStopRange(value) && !isValueMoveOneStepForwardRange(value);
     }
 
-    private boolean isValueStopRange(int value) {
-        return value >= STOP_MIN_VALUE && value <= STOP_MAX_VALUE;
+    private boolean isValueStopRange(Value value) {
+        return value.isGreaterThanOrEqual(STOP_MIN_VALUE) && value.isLessThanOrEqual(STOP_MAX_VALUE);
     }
 
-    private boolean isValueMoveOneStepForwardRange(int value) {
-        return value >= MOVE_ONE_STEP_FORWARD_MIN_VALUE && value <= MOVE_ONE_STEP_FORWARD_MAX_VALUE;
+    private boolean isValueMoveOneStepForwardRange(Value value) {
+        return value.isGreaterThanOrEqual(MOVE_ONE_STEP_FORWARD_MIN_VALUE) && value.isLessThanOrEqual(MOVE_ONE_STEP_FORWARD_MAX_VALUE);
     }
 
     private void moveOneStepForward() {
-        racingCarPosition.increaseOne();
+        position.increaseOne();
     }
 
     public int getPosition() {
-        return racingCarPosition.getPosition();
+        return position.getPosition();
     }
 }

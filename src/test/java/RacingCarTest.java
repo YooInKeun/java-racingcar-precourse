@@ -20,7 +20,7 @@ public class RacingCarTest {
     void moveForwardOneStepTest(int value) {
         assertThat(racingCar.getPosition()).isEqualTo(0);
 
-        racingCar.react(value);
+        racingCar.moveOneStepForwardOrStop(new Value(value));
         assertThat(racingCar.getPosition()).isEqualTo(1);
     }
 
@@ -29,7 +29,7 @@ public class RacingCarTest {
     void stopTest(int value) {
         assertThat(racingCar.getPosition()).isEqualTo(0);
 
-        racingCar.react(value);
+        racingCar.moveOneStepForwardOrStop(new Value(value));
         assertThat(racingCar.getPosition()).isEqualTo(0);
     }
 
@@ -37,6 +37,6 @@ public class RacingCarTest {
     @ValueSource(ints = { -1, 10, -100, 50 })
     @DisplayName("값이 범위를 벗어나면 예외가 발생한다.")
     void valueOutOfRangeExceptionTest(int value) {
-        assertThatThrownBy(() -> racingCar.react(value)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> racingCar.moveOneStepForwardOrStop(new Value(value))).isInstanceOf(IllegalArgumentException.class);
     }
 }
