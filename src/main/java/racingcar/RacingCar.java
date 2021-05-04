@@ -1,4 +1,8 @@
+package racingcar;
+
 public class RacingCar {
+    static final int MIN_VALUE = 0;
+    static final int MAX_VALUE = 9;
     public static final int STOP_MIN_VALUE = 0;
     public static final int STOP_MAX_VALUE = 3;
     public static final int MOVE_ONE_STEP_FORWARD_MIN_VALUE = 4;
@@ -8,13 +12,15 @@ public class RacingCar {
             STOP_MIN_VALUE, STOP_MAX_VALUE, MOVE_ONE_STEP_FORWARD_MIN_VALUE, MOVE_ONE_STEP_FORWARD_MAX_VALUE
     );
 
+    private RacingCarName name;
     private RacingCarPosition position;
 
-    public RacingCar() {
+    public RacingCar(String name) {
+        this.name = new RacingCarName(name);
         this.position = new RacingCarPosition();
     }
 
-    public void moveOneStepForwardOrStop(Value value) {
+    void moveOneStepForwardOrStop(Value value) {
         validateValue(value);
 
         if (isValueMoveOneStepForwardRange(value)) {
@@ -33,11 +39,11 @@ public class RacingCar {
     }
 
     private boolean isValueStopRange(Value value) {
-        return value.isGreaterThanOrEqual(STOP_MIN_VALUE) && value.isLessThanOrEqual(STOP_MAX_VALUE);
+        return value.isMoreThan(STOP_MIN_VALUE) && value.isLessThanOrEqual(STOP_MAX_VALUE);
     }
 
     private boolean isValueMoveOneStepForwardRange(Value value) {
-        return value.isGreaterThanOrEqual(MOVE_ONE_STEP_FORWARD_MIN_VALUE) && value.isLessThanOrEqual(MOVE_ONE_STEP_FORWARD_MAX_VALUE);
+        return value.isMoreThan(MOVE_ONE_STEP_FORWARD_MIN_VALUE) && value.isLessThanOrEqual(MOVE_ONE_STEP_FORWARD_MAX_VALUE);
     }
 
     private void moveOneStepForward() {

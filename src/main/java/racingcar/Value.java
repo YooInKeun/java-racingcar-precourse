@@ -1,3 +1,5 @@
+package racingcar;
+
 public class Value {
     private int value;
 
@@ -5,7 +7,7 @@ public class Value {
         this.value = value;
     }
 
-    boolean isGreaterThanOrEqual(int value) {
+    boolean isMoreThan(int value) {
         return this.value >= value;
     }
 
