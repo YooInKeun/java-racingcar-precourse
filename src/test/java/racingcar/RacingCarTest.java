@@ -1,3 +1,5 @@
+package racingcar;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +14,7 @@ public class RacingCarTest {
 
     @BeforeEach
     void setUp() {
-        racingCar = new RacingCar();
+        racingCar = new RacingCar("yik");
     }
 
     @ParameterizedTest
@@ -38,5 +40,12 @@ public class RacingCarTest {
     @DisplayName("값이 범위를 벗어나면 예외가 발생한다.")
     void valueOutOfRangeExceptionTest(int value) {
         assertThatThrownBy(() -> racingCar.moveOneStepForwardOrStop(new Value(value))).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "", "abcdef", "yooinkeun" })
+    @DisplayName("이름이 없거나 5자가 넘으면 예외가 발생한다.")
+    void invalidNameExceptionTest(String name) {
+        assertThatThrownBy(() -> new RacingCar(name)).isInstanceOf(IllegalArgumentException.class);
     }
 }
